@@ -3,6 +3,8 @@ import 'package:cuutaodi/pages/forgetpassword.dart';
 import 'package:cuutaodi/pages/enterpassword.dart';
 import 'package:cuutaodi/pages/signup.dart';
 import 'package:cuutaodi/pages/homescreen.dart';
+import 'package:cuutaodi/pages/cart.dart';
+import 'package:cuutaodi/pages/product.dart';
 import 'package:flutter/material.dart';
 
 void main() {

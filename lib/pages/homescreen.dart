@@ -5,148 +5,163 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Home Screen',
       home: HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
-  final List<String> buttonLabels = [
-    'Flash sale',
-    'Truyen tranh',
-    'Bang xep hang ',
-    'Tiep thuc Sai Gon',
-    'Ma Khuyen Mai',
-    'San pham moi',
-    'Goi y',
-    'Phien cho sach cu',
-    'Back to school',
-    'Review sach',
-  ];
-
-  final List<String> productImages = [
-    'assets/logo.png',
-    'assets/logo.png',
-    'assets/logo.png',
-    'assets/logo.png',
-    'assets/logo.png',
-    'assets/logo.png',
-    'assets/logo.png',
-    'assets/logo.png',
-  ];
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            IconButton(icon: Icon(Icons.menu), onPressed: () {}),
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: 'Search...',
-                  border: InputBorder.none,
-                  filled: true,
-                  fillColor: Colors.grey[200],
-                ),
-              ),
-            ),
-            IconButton(icon: Icon(Icons.qr_code), onPressed: () {}),
-          ],
+        title: Text('Home Screen'),
+        leading: IconButton(
+          icon: Icon(Icons.menu), // Menu icon
+          onPressed: () {
+            // Action for the menu button
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Menu button pressed')),
+            );
+          },
         ),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Static Image (Replaces Carousel)
+            // Search Bar
+            TextField(
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            // Small Image
             Container(
-              width: double.infinity,
-              height: 200,
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 20), // Increased top margin
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                image: DecorationImage(
-                  image: AssetImage('assets/logo.png'),
-                  fit: BoxFit.cover,
+              height: 100,
+              width: 350,
+              color: Colors.blue, // Placeholder for the image
+              child: Center(child: Text('Img')),
+            ),
+            SizedBox(height: 20),
+
+            // Icons with Names (8 Icons in 2 Rows)
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildIconColumn(Icons.home, 'Home'),
+                    _buildIconColumn(Icons.category, 'Category'),
+                    _buildIconColumn(Icons.favorite, 'Favorites'),
+                    _buildIconColumn(Icons.shopping_cart, 'Cart'),
+                  ],
                 ),
-              ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _buildIconColumn(Icons.person, 'Profile'),
+                    _buildIconColumn(Icons.settings, 'Settings'),
+                    _buildIconColumn(Icons.notifications, 'Notifications'),
+                    _buildIconColumn(Icons.help, 'Help'),
+                  ],
+                ),
+              ],
             ),
+            SizedBox(height: 20),
 
-            // Circular category buttons in a single column
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Wrap(
-                spacing: 8.0, // Horizontal spacing between buttons
-                runSpacing: 8.0, // Vertical spacing between buttons
-                alignment: WrapAlignment.center,
-                children: buttonLabels.map((label) {
-                  return SizedBox(
-                    width: 60, // Smaller width for circular buttons
-                    height: 60, // Smaller height for circular buttons
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: 10)),
-                      style: ElevatedButton.styleFrom(
-                        shape: CircleBorder(), // Circular button
-                        padding: EdgeInsets.all(8), // Padding inside the button
-                      ),
+            // Product Section
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Product Image and Details
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Product Image
+                    Container(
+                      height: 100,
+                      width: 100,
+                      color: Colors.green, // Placeholder for the product image
+                      child: Center(child: Text('Product')),
                     ),
-                  );
-                }).toList(),
-              ),
-            ),
-
-            // Horizontal scrollable products
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Featured Products',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 8),
-                ],
-              ),
+                    SizedBox(height: 10), // Space between image and details
+                    // Product Details
+                    Text('Product Name', style: TextStyle(fontSize: 18)),
+                    Text('\$29.99', style: TextStyle(fontSize: 16)),
+                    SizedBox(height: 10),
+                    // Cart Image
+                    IconButton(
+                      icon: Icon(Icons.add_shopping_cart),
+                      onPressed: () {
+                        // Add to cart action
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Account',
+            icon: Icon(Icons.category),
+            label: 'Category',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.recommend),
-            label: 'Recommend',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Cart',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
-        currentIndex: 0,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
+        currentIndex: 0, // Set the current index to the first item
+        selectedItemColor: Colors.blue, // Color for the selected item
+        unselectedItemColor: Colors.grey, // Color for unselected items
         onTap: (index) {
-          // Handle navigation
+          // Handle item tap
+          // You can navigate to different screens or perform actions based on the index
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Selected: ${index + 1}')),
+          );
         },
       ),
+    );
+  }
+
+  // Helper method to build icon columns
+  Column _buildIconColumn(IconData icon, String label) {
+    return Column(
+      children: [
+        Icon(icon),
+        Text(label),
+      ],
     );
   }
 }
